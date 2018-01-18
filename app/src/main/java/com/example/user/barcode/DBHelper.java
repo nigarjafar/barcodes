@@ -18,50 +18,54 @@ public class DBHelper extends SQLiteOpenHelper {
     final static String table_name = "barcode";
     final static String table_column_barcodeID = "barcodeID";
     final static String table_column_barcodeName = "barcodeName";
+    final static String table_column_count = "count";
 
     public DBHelper(Context context) {
         super(context, db_name, null, version);
     }
 
     public void createTable(){
-        Log.v("createTable","created");
+        Log.e("createTable","created");
         SQLiteDatabase db = getWritableDatabase();
-        //db.execSQL("drop table if exists " + table_name);
+
         String createStr = "create table if not exists " + table_name
                 + " (" + table_column_barcodeID + " TEXT primary key, "
-                + table_column_barcodeName + " TEXT not null)";
+                + table_column_barcodeName + " TEXT not null, "
+                + table_column_count + " INTEGER not null)";
         db.execSQL(createStr);
     }
 
-    public void insertTable(String barcodeID, String barcodeName){
-        Log.v("insertTable","inserted");
+    public void insertTable(String barcodeID, String barcodeName,int barcodeCount){
+        Log.e("insertTable","inserted");
         SQLiteDatabase db = getWritableDatabase();
-//        String insertStr = "insert into table " + table_name + " values('"+barcodeID+"','"+barcodeName+"');";
-//        db.execSQL(insertStr);
+
         ContentValues values = new ContentValues();
         values.put(table_column_barcodeID,barcodeID);
         values.put(table_column_barcodeName,barcodeName);
+        values.put(table_column_count,barcodeCount);
 
         db.insert(table_name,null,values);
     }
 
-    public Cursor readFromTable(String whereBarcodeID){
-        Log.v("readFrom","read");
+    public Cursor readFromTable(String selection,String where){
+        Log.e("readFrom","read");
         SQLiteDatabase db = getWritableDatabase();
-        Log.v("readFrom","read1111");
 
-        //Cursor cursor = db.rawQuery("SELECT * FROM "+table_name+" WHERE "+table_column_barcodeID+" = \'"+whereBarcodeID+"\'",null);
-        Cursor cursor = db.rawQuery("SELECT * FROM "+table_name,null);
+        Cursor cursor = db.rawQuery("SELECT "+selection+" FROM "+table_name +" " + where,null);
+        Log.e("count","count = " +cursor.getCount());
 
-        Log.v("readFrom","read2222222");
-       // db.close();
-        Log.v("readFrom","read333333");
-        if(cursor.getCount()==1){
-            Log.v("readFrom","ddd");
-        }
-
-        Log.v("readFrom",""+cursor.getCount());
         return cursor;
+    }
+
+    public void updateTable(int barcodeCount, String id){
+        Log.e("update","update");
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(table_column_count, barcodeCount);
+
+        db.update(table_name,values,table_column_barcodeID+"=?", new String[]{id});
+        Log.e("update2","updated");
     }
 
     @Override

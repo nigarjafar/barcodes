@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Barcode</string>
     <string name="title_activity_change_password">ChangePassword</string>
+    <string name="facebook_app_id">369287340149924</string>
+    <string name="fb_login_protocol_scheme">fb369287340149924</string>
+
 </resources>
+
+

@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <SurfaceView
-        android:id="@+id/surfaceView"
+    <ImageView
+        android:id="@+id/imgView"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1"/>
+        android:onClick="readBarcode"
+        android:layout_weight="1"
+        android:src="@drawable/camera"/>
 
     <LinearLayout
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -22,22 +24,6 @@
         android:orientation="vertical"
         android:layout_weight="1">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Barcode Menu"
-                style="@style/ButtonStyle"
-                android:onClick="backBarcodeMenu"
-                />
-
-        </RelativeLayout>
-
 
         <EditText
             android:id="@+id/addBarcodeID"
@@ -45,15 +31,24 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:hint="Barcode"
-            />
-
+            android:maxLines="1" />
 
         <EditText
             android:id="@+id/addBarcodeName"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:hint="Name"/>
+            android:hint="Name"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/addBarcodeCount"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:hint="Count"
+            android:inputType="number"
+            android:maxLines="1" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -63,21 +58,13 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="Read Barcode"
-                android:layout_alignParentBottom="true"
-                style="@style/ButtonStyle"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="Save Barcode"
+                android:onClick="saveBarcode"
                 android:layout_alignParentBottom="true"
                 style="@style/ButtonStyle"/>
 
         </RelativeLayout>
-
 
     </LinearLayout>
 

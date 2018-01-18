@@ -17,14 +17,12 @@ public class RegistrationPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_page);
 
+        getSupportActionBar().setTitle("Registration");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         this.db=new UserDb(this);
         this.db.CreateTable();
 
-    }
-
-    public void toLoginPage(View view) {
-        Intent loginPage = new Intent(this, LoginPage.class);
-        startActivity(loginPage);
     }
 
 
